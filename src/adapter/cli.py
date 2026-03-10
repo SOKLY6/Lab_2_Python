@@ -9,7 +9,7 @@ from src.repository.task_api import TaskAPI
 from src.repository.task_file import FileSource
 from src.repository.task_generator import TaskGenerator
 from src.repository.task_storage import TaskStorage
-from src.usecases.task_interact import TaskInteract
+from src.usecases.task_queue import TaskInteract
 
 logger = get_logger(__name__)
 

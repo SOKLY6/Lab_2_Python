@@ -12,7 +12,7 @@ class TaskAPI:
         payload_2 = "Гавкнуть"
         payload_3 = "Гоготнуть"
         task_1 = Task(100001, payload_1)
-        task_2 = Task(100002, payload_2)
-        task_3 = Task(100003, payload_3)
+        task_2 = Task(100002, payload_2, 4)
+        task_3 = Task(100003, payload_3, 5)
         tasks = [task_1, task_2, task_3]
         return tasks
