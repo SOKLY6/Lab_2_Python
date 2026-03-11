@@ -1,18 +1,18 @@
 import pytest
 from datetime import datetime, timedelta
 from pathlib import Path
-import json
 
-from src.domain.task import Task, TaskSource
+from src.domain.task import Task
+from src.domain.protocols import TaskSource
 from src.domain.exceptions import (
     IncorrectTaskId,
     EmptyTaskPayload,
     IncorrectTaskPriority,
     IncorrectTaskStatus,
 )
-from src.usecases.task_generator import TaskGenerator
-from src.usecases.task_file import FileSource
-from src.usecases.task_api import TaskAPI
+from src.repository.task_generator import TaskGenerator
+from src.repository.task_file import FileSource
+from src.repository.task_api import TaskAPI
 
 
 @pytest.fixture
@@ -57,11 +57,11 @@ class TestTaskValidation:
             Task(id=1, payload=123)
 
     def test_payload_cannot_be_none(self):
-        with pytest.raises(EmptyTaskPayload, match="не может быть пустым"):
+        with pytest.raises(EmptyTaskPayload, match="Описание задачи не может быть пустым"):
             Task(id=1, payload=None)
 
     def test_priority_must_be_int(self):
-        with pytest.raises(IncorrectTaskPriority):
+        with pytest.raises(TypeError):
             Task(id=1, payload="test", priority="3")
 
     def test_priority_must_be_positive(self):

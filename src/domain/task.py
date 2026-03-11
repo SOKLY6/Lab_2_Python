@@ -1,5 +1,4 @@
 from datetime import datetime, timedelta
-from typing import Iterable, Protocol, runtime_checkable
 
 from src.domain.descriptors import (
     CorrectTaskId,
@@ -31,10 +30,3 @@ class Task:
     @property
     def creation_time(self) -> datetime:
         return self.__creation_time
-
-
-@runtime_checkable
-class TaskSource(Protocol):
-    """Протокол источника задач"""
-
-    def get_tasks(self) -> Iterable[Task]: ...

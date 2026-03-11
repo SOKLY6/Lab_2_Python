@@ -31,10 +31,10 @@ class NotEmptyPayload:
         return instance.__dict__[self.name]
 
     def __set__(self, instance: Any, value: str) -> None:
-        if not isinstance(value, str):
-            raise TypeError("Описание задачи должно задаваться строкой")
         if value is None:
             raise EmptyTaskPayload("Описание задачи не может быть пустым")
+        if not isinstance(value, str):
+            raise TypeError("Описание задачи должно задаваться строкой")
         instance.__dict__[self.name] = value
 
 
@@ -46,7 +46,9 @@ class CorrectTaskPriority:
         return instance.__dict__[self.name]
 
     def __set__(self, instance: Any, value: int) -> None:
-        if not isinstance(value, int) and (1 <= value):
+        if not isinstance(value, int):
+            raise TypeError("Приоритет должен быть целым числом")
+        if value < 1:
             raise IncorrectTaskPriority(
                 "Приоритет задачи должен задаваться натуральным числом"
             )
