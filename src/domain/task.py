@@ -1,9 +1,12 @@
+from datetime import datetime, timedelta
 from typing import Iterable, Protocol, runtime_checkable
-from datetime import datetime
-from src.domain.descriptors import (CorrectTaskId,
-                                    NotEmptyPayload,
-                                    CorrectTaskStatus,
-                                    CorrectTaskPriority)
+
+from src.domain.descriptors import (
+    CorrectTaskId,
+    CorrectTaskPriority,
+    CorrectTaskStatus,
+    NotEmptyPayload,
+)
 
 
 class Task:
@@ -12,7 +15,9 @@ class Task:
     priority = CorrectTaskPriority()
     status = CorrectTaskStatus()
 
-    def __init__(self, id: int, payload: str, priority: int = 1, status: str = "new") -> None:
+    def __init__(
+        self, id: int, payload: str, priority: int = 1, status: str = "new"
+    ) -> None:
         self.id = id
         self.payload = payload
         self.priority = priority
@@ -20,9 +25,9 @@ class Task:
         self.__creation_time = datetime.now()
 
     @property
-    def living_time(self) -> datetime:
+    def living_time(self) -> timedelta:
         return datetime.now() - self.__creation_time
-    
+
     @property
     def creation_time(self) -> datetime:
         return self.__creation_time

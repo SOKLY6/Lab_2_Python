@@ -33,5 +33,9 @@ class TaskGenerator:
     def get_tasks(self) -> Iterable[Task]:
         """Генерирует указанное количество задач"""
         for _ in range(self.count):
-            yield Task(TaskGenerator._id, random.choice(TaskGenerator.TEXTS), random.randint(1, 5))
+            yield Task(
+                TaskGenerator._id,
+                random.choice(TaskGenerator.TEXTS),
+                random.randint(1, 5),
+            )
             TaskGenerator._id += 1

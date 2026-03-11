@@ -1,17 +1,21 @@
-from src.domain.exceptions import (IncorrectTaskId,
-                                   EmptyTaskPayload,
-                                   IncorrectTaskPriority,
-                                   IncorrectTaskStatus)
+from typing import Any
+
+from src.domain.exceptions import (
+    EmptyTaskPayload,
+    IncorrectTaskId,
+    IncorrectTaskPriority,
+    IncorrectTaskStatus,
+)
 
 
 class CorrectTaskId:
-    def __set_name__(self, owner, name) -> None:
-        self.name = '_' + name
+    def __set_name__(self, owner: Any, name: str) -> None:
+        self.name = "_" + name
 
-    def __get__(self, instance, owner) -> int:
+    def __get__(self, instance: Any, owner: Any) -> int:
         return instance.__dict__[self.name]
-    
-    def __set__(self, instance, value) -> None:
+
+    def __set__(self, instance: Any, value: int) -> None:
         if not isinstance(value, int):
             raise TypeError("Id должно быть целым числом")
         if value < 1:
@@ -20,13 +24,13 @@ class CorrectTaskId:
 
 
 class NotEmptyPayload:
-    def __set_name__(self, owner, name) -> None:
-        self.name = '_' + name
+    def __set_name__(self, owner: Any, name: str) -> None:
+        self.name = "_" + name
 
-    def __get__(self, instance, owner) -> str:
+    def __get__(self, instance: Any, owner: Any) -> str:
         return instance.__dict__[self.name]
-    
-    def __set__(self, instance, value) -> None:
+
+    def __set__(self, instance: Any, value: str) -> None:
         if not isinstance(value, str):
             raise TypeError("Описание задачи должно задаваться строкой")
         if value is None:
@@ -35,28 +39,30 @@ class NotEmptyPayload:
 
 
 class CorrectTaskPriority:
-    def __set_name__(self, owner, name) -> None:
-        self.name = '_' + name
+    def __set_name__(self, owner: Any, name: str) -> None:
+        self.name = "_" + name
 
-    def __get__(self, instance, owner) -> int:
+    def __get__(self, instance: Any, owner: Any) -> int:
         return instance.__dict__[self.name]
-    
-    def __set__(self, instance, value) -> None:
-        if not isinstance(value, int) and (1 <= value <= 5):
-            raise IncorrectTaskPriority("Приоритет задачи должен задаваться натуральным числом от 1 до 5")
+
+    def __set__(self, instance: Any, value: int) -> None:
+        if not isinstance(value, int) and (1 <= value):
+            raise IncorrectTaskPriority(
+                "Приоритет задачи должен задаваться натуральным числом"
+            )
         instance.__dict__[self.name] = value
 
 
 class CorrectTaskStatus:
     STATUSES = ["new", "processing", "complete"]
 
-    def __set_name__(self, owner, name) -> None:
-        self.name = '_' + name
+    def __set_name__(self, owner: Any, name: str) -> None:
+        self.name = "_" + name
 
-    def __get__(self, instance, owner) -> str:
+    def __get__(self, instance: Any, owner: Any) -> str:
         return instance.__dict__[self.name]
-    
-    def __set__(self, instance, value) -> None:
+
+    def __set__(self, instance: Any, value: str) -> None:
         if not isinstance(value, str):
             raise TypeError("Статус задачи должен задаваться строкой")
         if value not in self.STATUSES:
