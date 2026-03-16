@@ -1,4 +1,5 @@
 from typing import Iterable, Protocol, runtime_checkable
+
 from src.domain.task import Task
 
 
